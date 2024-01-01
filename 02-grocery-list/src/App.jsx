@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/no-unescaped-entities */
-import { useCallback } from "react";
+
 import "./App.css";
 import groceryCartImg from "./assets/grocery-cart.png";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 function App() {
   const [inputValue, setInputValue] = useState("");

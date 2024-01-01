@@ -6,5 +6,15 @@
     "defaults",
     "not ie 11",
     "not samsung <= 22"
-  ]
+  ],
+  "hints": {
+    "compat-api/css": [
+      "default",
+      {
+        "ignore": [
+          "-webkit-text-size-adjust"
+        ]
+      }
+    ]
+  }
 }
