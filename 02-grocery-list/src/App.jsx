@@ -1,8 +1,9 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/no-unescaped-entities */
+import { useCallback } from "react";
 import "./App.css";
 import groceryCartImg from "./assets/grocery-cart.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   const [inputValue, setInputValue] = useState("");
@@ -15,7 +16,7 @@ function App() {
     setInputValue(e.target.value);
   };
 
-  const determineCompletedStatus = () => {
+  const determineCompletedStatus = useCallback(() => {
     if (!groceryItems.length > 0) {
       setIsCompleted(false);
     }
@@ -27,7 +28,11 @@ function App() {
       }
     });
     setIsCompleted(isAllCompleted);
-  };
+  }, [groceryItems, setIsCompleted]);
+
+  useEffect(() => {
+    determineCompletedStatus();
+  }, [groceryItems, determineCompletedStatus]);
 
   const handleAddGroceryItem = () => {
     if (inputValue) {
@@ -46,20 +51,17 @@ function App() {
       }
       setGroceryItems(updatedGroceryList);
       setInputValue("");
-      determineCompletedStatus();
     }
   };
 
   const handleRemoveItem = (name) => {
     setGroceryItems([...groceryItems].filter((item) => item.name !== name));
-    determineCompletedStatus();
   };
 
   const handleUpdateCompleteStatus = (status, index) => {
     const updatedGroceryList = [...groceryItems];
     updatedGroceryList[index].completed = status;
     setGroceryItems(updatedGroceryList);
-    determineCompletedStatus();
   };
 
   const renderGroceryItems = () => {
